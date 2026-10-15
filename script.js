@@ -82,6 +82,11 @@ function readyToPlay(event) {
       metal.envelope.decay = 0.9;
       metal.resonance = 6000;
        metal.triggerAttackRelease("8n");
+    } else if (key === "f") {
+      metal.frequency.value = 100;
+      metal.envelope.decay = 0.3;
+      metal.resonance = 1000;
+      metal.triggerAttackRelease("8n");
     }
 
 
@@ -108,5 +113,4 @@ function setup() {
   window.addEventListener("keyup", keyUp);
 }
 document.addEventListener("keydown", readyToPlay);
-
 setup(); // Always remember to call setup()!
