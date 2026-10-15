@@ -57,6 +57,7 @@ function keyDown(event) {
     console.log("Key down:", event.key);
     synth.triggerAttackRelease(D3, Tonw.now);
 
+
     // Example: replace this with your own instrument.
     if (event.key === exampleKey) {
       synth.triggerAttack(exampleNote, Tone.now()); // keeps sounding until triggerRelease
