@@ -31,6 +31,7 @@ const exampleNote = "C4"; // the note it plays
 // ---------- Sound ----------
 // Make the instruments and plug them into the speakers.
 const synth = new Tone.PolySynth(Tone.Synth).toDestination(); // can play several notes at once
+const metal = new Tone.MetalSynth().toDestination();
 
 // ---------- Update ----------
 // Update the state. This is called every 100ms.
@@ -62,6 +63,22 @@ function keyDown(event) {
   }
 }
 
+function readyToPlay(event) {
+  Tone.start();
+  key = event.key;
+  if (key === "e") {
+    metal.frequency.value = 400;
+    metal.envelope.decay = 0.3;
+    metal.resonance = 2000;
+    metal.triggerAttackRelease(8n);
+  } else if (key === "w") {
+    metal.frequency.value = 200;
+    metal.envelope.decay = 0.6;
+    metal.resonance = 4000;
+    metal.triggerAttackRelease(2n);
+  }
+}
+
 // Runs every time a key comes up.
 function keyUp(event) {
   console.log("Key up:", event.key);
@@ -82,5 +99,6 @@ function setup() {
   window.addEventListener("keydown", keyDown);
   window.addEventListener("keyup", keyUp);
 }
+document.addEventListener("keydown", readyToPlay);
 
 setup(); // Always remember to call setup()!
