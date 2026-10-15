@@ -74,11 +74,17 @@ function readyToPlay(event) {
     metal.frequency.value = 200;
     metal.envelope.decay = 0.6;
     metal.resonance = 4000;
-    metal.triggerAttackRelease(2n);
+    metal.triggerAttackRelease("2n");
+    } else if (key === "r") {
+      metal.frequency.value = 600;
+      metal.envelope.decay = 0.9;
+      metal.resonance = 6000;
+       metal.triggerAttackRelease("8n");
+    }
 
 
   }
-}
+
 // Runs every time a key comes up.
 function keyUp(event) {
   console.log("Key up:", event.key);
