@@ -31,6 +31,7 @@ const exampleNote = "C4"; // the note it plays
 // ---------- Sound ----------
 // Make the instruments and plug them into the speakers.
 const synth = new Tone.PolySynth(Tone.Synth).toDestination(); // can play several notes at once
+const metal = new Tone.MetalSynth().toDestination();
 
 // ---------- Update ----------
 // Update the state. This is called every 100ms.
@@ -52,8 +53,9 @@ function keyDown(event) {
   Tone.start(); // browsers only allow sound after the player has pressed something
 
   // Holding a key down sends keydown again and again. Only react to the first one.
-  if (event.repeat === false) {
+  if (event.repeat === true) {
     console.log("Key down:", event.key);
+    synth.triggerAttackRelease(D3, Tonw.now);
 
     // Example: replace this with your own instrument.
     if (event.key === exampleKey) {
@@ -105,5 +107,6 @@ function setup() {
   window.addEventListener("keydown", keyDown);
   window.addEventListener("keyup", keyUp);
 }
+document.addEventListener("keydown", readyToPlay);
 
 setup(); // Always remember to call setup()!
