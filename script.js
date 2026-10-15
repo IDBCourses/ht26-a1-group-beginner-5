@@ -69,7 +69,7 @@ function readyToPlay(event) {
     metal.frequency.value = 400;
     metal.envelope.decay = 0.3;
     metal.resonance = 2000;
-    metal.triggerAttackRelease(8n);
+    metal.triggerAttackRelease("8n");
   } else if (key === "w") {
     metal.frequency.value = 200;
     metal.envelope.decay = 0.6;
