@@ -53,9 +53,9 @@ function keyDown(event) {
   Tone.start(); // browsers only allow sound after the player has pressed something
 
   // Holding a key down sends keydown again and again. Only react to the first one.
-  if (event.repeat === true) {
+  if (event.repeat === false) {
     console.log("Key down:", event.key);
-    synth.triggerAttackRelease(D3, Tonw.now);
+    
 
     // Example: replace this with your own instrument.
     if (event.key === exampleKey) {
