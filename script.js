@@ -58,6 +58,7 @@ function keyDown(event) {
     console.log("Key down:", event.key);
 
 
+
     // Example: replace this with your own instrument.
     if (event.key === exampleKey) {
       synth.triggerAttack(exampleNote, Tone.now()); // keeps sounding until triggerRelease
@@ -127,7 +128,6 @@ function readyToPlay(event) {
     metal.resonance = 1000;
     metal.triggerAttackRelease("8n");
   }
-}
 
 // Runs every time a key comes up.
 function keyUp(event) {
