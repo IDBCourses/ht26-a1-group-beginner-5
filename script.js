@@ -21,9 +21,13 @@
 // ---------- Settings ----------
 // Settings variables should contain all of the "fixed" parts of your programs
 // For example: which key does what, which notes you can play, the tempo.
-const exampleKey = "a"; // the key that plays the example note
-const exampleNote = "C4"; // the note it plays
+const exampleKey = "a";
+const exampleKey2 = "s"; // the key that plays the example note
+const exampleNote = "A4"; // the note it plays
+const exampleNote2 = "D4";
+let echo = true;
 let storeOfTheNotes = [];
+let addOtherNotes = [];
 
 // ---------- State ----------
 // State variables are the parts of your program that change over time.
@@ -57,34 +61,58 @@ function keyDown(event) {
   if (event.repeat === false) {
     console.log("Key down:", event.key);
 
-
     // Example: replace this with your own instrument.
-    if (event.key === exampleKey) {
-      synth.triggerAttack(exampleNote, Tone.now()); // keeps sounding until triggerRelease
+    if (event.key === exampleKey && echo === false) {
+      console.log("Letter P has been added to the array");
+      storeOfTheNotes.push("A4"); // keeps sounding until triggerRelease
+    } else if (event.key === exampleKey && echo === true) {
+      synth.triggerAttack(exampleNote2, Tone.now()); // keeps sounding until triggerRelease
+    } else if (event.key === exampleKey2 && echo === false) {
+      console.log("Letter P has been added to the array");
+      storeOfTheNotes.push("A4"); // keeps sounding until triggerRelease
+    } else if (event.key === exampleKey2 && echo === true) {
+      metal.triggerAttack(exampleNote2, Tone.now()); // keeps sounding until triggerRelease
+    } else if (event.key === "Shift" && echo === false) {
+      echo = true;
+    } else if (event.key === "Shift" && echo === true) {
+      echo = false;
     }
   }
 }
 
 function storeNotes(event) {
   let key = event.key;
-  if (key === "p") {
+  if (key === "p" && echo === false) {
     console.log("Letter P has been added to the array");
     storeOfTheNotes.push("E4");
-  } else if (key === "o") {
+  } else if (key === "o" && echo === false) {
     console.log("Letter O has been added to the array");
     storeOfTheNotes.push("A2");
-  } else if (key === "l") {
+  } else if (key === "l" && echo === false) {
     console.log("Letter L has been added to the array");
     storeOfTheNotes.push("E3");
-  } else if (key === "k") {
+  } else if (key === "k" && echo === false) {
     console.log("Letter K has been added to the array");
     storeOfTheNotes.push("B3");
+  } else if (key === "u" && echo === false) {
+    console.log("Letter U has been added to the array");
+    storeOfTheNotes.push("C5");
   } else if (key === "+") {
     console.log("You have removed a note at the end of the array");
     storeOfTheNotes.pop();
   } else if (key === "-") {
     console.log("You have removed a note at the front of the array");
     storeOfTheNotes.shift();
+  } else if (key === "p" && echo === true) {
+    synth.triggerAttackRelease("E4", "8n");
+  } else if (key === "o" && echo === true) {
+    synth.triggerAttackRelease("A2", "8n");
+  } else if (key === "l" && echo === true) {
+    synth.triggerAttackRelease("E3", "8n");
+  } else if (key === "k" && echo === true) {
+    synth.triggerAttackRelease("B3", "8n");
+  } else if (key === "u" && echo === true) {
+    synth.triggerAttackRelease("C5", "8n");
   }
 }
 
@@ -110,22 +138,22 @@ function readyToPlay(event) {
     metal.frequency.value = 400;
     metal.envelope.decay = 0.3;
     metal.resonance = 2000;
-    metal.triggerAttackRelease("8n");
+    metal.triggerAttackRelease("D3");
   } else if (key === "w") {
     metal.frequency.value = 200;
     metal.envelope.decay = 0.6;
     metal.resonance = 4000;
-    metal.triggerAttackRelease("2n");
+    metal.triggerAttackRelease("A4");
   } else if (key === "r") {
     metal.frequency.value = 600;
     metal.envelope.decay = 0.9;
     metal.resonance = 6000;
-    metal.triggerAttackRelease("8n");
+    metal.triggerAttackRelease("B4");
   } else if (key === "f") {
     metal.frequency.value = 100;
     metal.envelope.decay = 0.3;
     metal.resonance = 1000;
-    metal.triggerAttackRelease("8n");
+    metal.triggerAttackRelease("G6");
   }
 }
 
@@ -134,8 +162,16 @@ function keyUp(event) {
   console.log("Key up:", event.key);
 
   // Example: replace this with your own instrument.
-  if (event.key === exampleKey) {
-    synth.triggerRelease(exampleNote, Tone.now());
+  if (event.key === exampleKey && echo === false) {
+    synth.triggerRelease(exampleNote, Tone.now()); // keeps sounding until triggerRelease
+  } else if (event.key === exampleKey && echo === true) {
+    synth.triggerRelease(exampleNote2, Tone.now()); // keeps sounding until triggerRelease
+  }
+
+  if (event.key === exampleKey2 && echo === false) {
+    metal.triggerRelease(exampleNote, Tone.now()); // keeps sounding until triggerRelease
+  } else if (event.key === exampleKey2 && echo === true) {
+    metal.triggerRelease(exampleNote2, Tone.now()); // keeps sounding until triggerRelease
   }
 }
 
