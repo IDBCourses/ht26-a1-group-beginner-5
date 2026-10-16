@@ -27,6 +27,11 @@ const exampleNote = "A4"; // the note it plays
 const exampleNote2 = "D4";
 let echo = false;
 
+// Tara - Start
+const monoKey = ["z", "x", "c", "v", "b", "n", "m"]
+const monoNote = ["C4", "D4", "E4", "F4", "G4", "A4", "B4"]
+// Tara - End
+
 // ---------- State ----------
 // State variables are the parts of your program that change over time.
 // For example: which octave you're playing in, or whether a drone is on.
@@ -35,6 +40,9 @@ let echo = false;
 // Make the instruments and plug them into the speakers.
 const synth = new Tone.PolySynth(Tone.Synth).toDestination(); // can play several notes at once
 const metal = new Tone.MetalSynth().toDestination();
+// Tara - Start
+const mono = new Tone.MonoSynth().toDestination();
+//Tara - End
 
 // ---------- Update ----------
 // Update the state. This is called every 100ms.
@@ -60,8 +68,13 @@ function keyDown(event) {
   if (event.repeat === false) {
     console.log("Key down:", event.key);
 
-
-
+// Tara - Start
+   for (let i = 0; i < monoKey.length; i++) {
+    if (event.key === monoKey[i]) {
+    mono.triggerAttack(monoNote[i], Tone.now());
+  }
+// Tara - End
+}
     // Example: replace this with your own instrument.
     if (event.key === exampleKey  && echo === false) {
       synth.triggerAttack(exampleNote, Tone.now()); // keeps sounding until triggerRelease
@@ -145,7 +158,7 @@ function readyToPlay(event) {
     metal.resonance = 1000;
     metal.triggerAttackRelease("8n");
   }
-
+}
 // Runs every time a key comes up.
 // Aurthor: Am8013
 function keyUp(event) {
@@ -163,6 +176,13 @@ function keyUp(event) {
     } else if (event.key === exampleKey2  && echo === true) {
       metal.triggerRelease(exampleNote2, Tone.now()); // keeps sounding until triggerRelease
 }
+// Tara - Start
+   for (let i = 0; i < monoKey.length; i++) {
+    if (event.key === monoKey[i]) {
+    mono.triggerRelease();
+   }
+// Tara - End
+  }
 }
 
 // ---------- Setup ----------
