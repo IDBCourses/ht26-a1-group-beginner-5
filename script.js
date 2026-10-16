@@ -21,8 +21,11 @@
 // ---------- Settings ----------
 // Settings variables should contain all of the "fixed" parts of your programs
 // For example: which key does what, which notes you can play, the tempo.
-const exampleKey = "a"; // the key that plays the example note
-const exampleNote = "C4"; // the note it plays
+const exampleKey = "a";
+const exampleKey2 = "s" // the key that plays the example note
+const exampleNote = "A4"; // the note it plays
+const exampleNote2 = "D4";
+let echo = false;
 
 // ---------- State ----------
 // State variables are the parts of your program that change over time.
@@ -49,21 +52,36 @@ function use() {
 
 // ---------- Controls (Event Handlers) ----------
 // Runs every time a key goes down.
+// Aurthor: Am8013
 function keyDown(event) {
   Tone.start(); // browsers only allow sound after the player has pressed something
 
   // Holding a key down sends keydown again and again. Only react to the first one.
   if (event.repeat === false) {
     console.log("Key down:", event.key);
-    
+
 
 
     // Example: replace this with your own instrument.
-    if (event.key === exampleKey) {
+    if (event.key === exampleKey  && echo === false) {
       synth.triggerAttack(exampleNote, Tone.now()); // keeps sounding until triggerRelease
-    }
+    } else if (event.key === exampleKey  && echo === true) {
+      synth.triggerAttack(exampleNote2, Tone.now()); // keeps sounding until triggerRelease
+
+    } else if (event.key === exampleKey2  && echo === false) {
+      metal.triggerAttack(exampleNote, Tone.now()); // keeps sounding until triggerRelease
+    } else if (event.key === exampleKey2  && echo === true) {
+      metal.triggerAttack(exampleNote2, Tone.now()); // keeps sounding until triggerRelease
+
+
+    } else if (event.key === "Shift" && echo === false) {
+      echo = true
+    } else if (event.key === "Shift" && echo === true) {
+      echo = false
   }
 }
+}
+
 
 function readyToPlay(event) {
   Tone.start();
@@ -97,13 +115,22 @@ function readyToPlay(event) {
   }
 
 // Runs every time a key comes up.
+// Aurthor: Am8013
 function keyUp(event) {
   console.log("Key up:", event.key);
 
   // Example: replace this with your own instrument.
-  if (event.key === exampleKey) {
-    synth.triggerRelease(exampleNote, Tone.now());
-  }
+  if (event.key === exampleKey  && echo === false) {
+      synth.triggerRelease(exampleNote, Tone.now()); // keeps sounding until triggerRelease
+    } else if (event.key === exampleKey  && echo === true) {
+      synth.triggerRelease(exampleNote2, Tone.now()); // keeps sounding until triggerRelease
+    }
+
+  if (event.key === exampleKey2  && echo === false) {
+      metal.triggerRelease(exampleNote, Tone.now()); // keeps sounding until triggerRelease
+    } else if (event.key === exampleKey2  && echo === true) {
+      metal.triggerRelease(exampleNote2, Tone.now()); // keeps sounding until triggerRelease
+}
 }
 
 // ---------- Setup ----------
