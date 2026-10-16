@@ -22,7 +22,9 @@
 // Settings variables should contain all of the "fixed" parts of your programs
 // For example: which key does what, which notes you can play, the tempo.
 const exampleKey = "a";
-const exampleKey2 = "s" // the key that plays the example note
+const exampleKey2 = "s";
+const exampleKey3 = "d";
+const exampleKey4 = "z"; // the key that plays the example note
 const exampleNote = "A4"; // the note it plays
 const exampleNote2 = "D4";
 let echo = false;
@@ -73,6 +75,15 @@ function keyDown(event) {
     } else if (event.key === exampleKey2  && echo === true) {
       metal.triggerAttack(exampleNote2, Tone.now()); // keeps sounding until triggerRelease
 
+    } else if (event.key === exampleKey3  && echo === false) {
+      metal.triggerAttack(exampleNote, Tone.now()); // keeps sounding until triggerRelease
+    } else if (event.key === exampleKey3  && echo === true) {
+      metal.triggerAttack(exampleNote2, Tone.now()); // keeps sounding until triggerRelease
+
+    } else if (event.key === exampleKey4  && echo === false) {
+      metal.triggerAttack(exampleNote, Tone.now()); // keeps sounding until triggerRelease
+    } else if (event.key === exampleKey4  && echo === true) {
+      metal.triggerAttack(exampleNote2, Tone.now()); // keeps sounding until triggerRelease
 
     } else if (event.key === "Shift" && echo === false) {
       echo = true
@@ -145,6 +156,7 @@ function readyToPlay(event) {
     metal.resonance = 1000;
     metal.triggerAttackRelease("8n");
   }
+}
 
 // Runs every time a key comes up.
 // Aurthor: Am8013
@@ -161,6 +173,18 @@ function keyUp(event) {
   if (event.key === exampleKey2  && echo === false) {
       metal.triggerRelease(exampleNote, Tone.now()); // keeps sounding until triggerRelease
     } else if (event.key === exampleKey2  && echo === true) {
+      metal.triggerRelease(exampleNote2, Tone.now()); // keeps sounding until triggerRelease
+
+    }
+  if (event.key === exampleKey3  && echo === false) {
+      metal.triggerRelease(exampleNote, Tone.now()); // keeps sounding until triggerRelease
+    } else if (event.key === exampleKey3  && echo === true) {
+      metal.triggerRelease(exampleNote2, Tone.now()); // keeps sounding until triggerRelease
+
+      }
+    if (event.key === exampleKey4  && echo === false) {
+      metal.triggerRelease(exampleNote, Tone.now()); // keeps sounding until triggerRelease
+    } else if (event.key === exampleKey4  && echo === true) {
       metal.triggerRelease(exampleNote2, Tone.now()); // keeps sounding until triggerRelease
 }
 }
