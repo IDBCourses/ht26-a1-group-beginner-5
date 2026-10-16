@@ -145,9 +145,6 @@ function readyToPlay(event) {
     metal.resonance = 4000;
     metal.triggerAttackRelease("A4");
   } else if (key === "r") {
-    metal.frequency.value = 600;
-    metal.envelope.decay = 0.9;
-    metal.resonance = 6000;
     metal.triggerAttackRelease("B4");
   } else if (key === "f") {
     metal.frequency.value = 100;
