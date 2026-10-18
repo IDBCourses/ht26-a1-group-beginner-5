@@ -49,9 +49,6 @@ function update() {
 // Use the state to make sound. This is called every 100ms.
 function use() {
   setTimeout(use, 100); // call use() again in 100 milliseconds
-
-
-
 }
 
 // ---------- Controls (Event Handlers) ----------
@@ -86,23 +83,23 @@ function keyDown(event) {
 function storeNotes(event) {
   let key = event.key;
   if (key === "p" && echo === false) {
-    console.log("Letter P has been added to the array");
+    console.log("Note E4 has been added to the array");
     storeOfTheNotes.push("E4");
     synth.triggerAttackRelease("E4", "8n");
   } else if (key === "o" && echo === false) {
-    console.log("Letter O has been added to the array");
+    console.log("Note A2 has been added to the array");
     storeOfTheNotes.push("A2");
     synth.triggerAttackRelease("A2", "8n");
   } else if (key === "l" && echo === false) {
-    console.log("Letter L has been added to the array");
+    console.log("Note E3 has been added to the array");
     storeOfTheNotes.push("E3");
     synth.triggerAttackRelease("E3", "8n");
   } else if (key === "k" && echo === false) {
-    console.log("Letter K has been added to the array");
+    console.log("Note B3 has been added to the array");
     storeOfTheNotes.push("B3");
     synth.triggerAttackRelease("B3", "8n");
   } else if (key === "u" && echo === false) {
-    console.log("Letter U has been added to the array");
+    console.log("Note C5 has been added to the array");
     storeOfTheNotes.push("C5");
     synth.triggerAttackRelease("C5", "8n");
   } else if (key === "+") {
