@@ -42,7 +42,7 @@ const metal = new Tone.MetalSynth().toDestination();
 function update() {
   // Example: replace this with your own instrument.
 
-  setTimeout(update, 100); // call update() again in 100 milliseconds
+  setTimeout(playStoredNotes, 100); // call update() again in 100 milliseconds
 }
 
 // ---------- Use ----------
@@ -138,7 +138,7 @@ function playStoredNotes(event) {
       );
     }
   } else if (key === "y") {
-    console.log("Double stored notes are now playing");
+    console.log("Double quick stored notes are now playing");
     console.log(storeOfTheNotes);
     for (parameter = 0; parameter < storeOfTheNotes.length - 1; parameter++) {
       synth.triggerAttackRelease(
