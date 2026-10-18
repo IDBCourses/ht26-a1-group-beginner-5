@@ -24,14 +24,13 @@
 const exampleKey = "a";
 const exampleKey2 = "s"; // the key that plays the example note
 const exampleNote = "A4"; // the note it plays
-const exampleNote2 = "D4";
-let echo = true;
-let storeOfTheNotes = [];
-let addOtherNotes = [];
+const exampleNote2 = "A4";
 
 // ---------- State ----------
 // State variables are the parts of your program that change over time.
 // For example: which octave you're playing in, or whether a drone is on.
+let echo = true;
+let storeOfTheNotes = [];
 
 // ---------- Sound ----------
 // Make the instruments and plug them into the speakers.
@@ -50,6 +49,9 @@ function update() {
 // Use the state to make sound. This is called every 100ms.
 function use() {
   setTimeout(use, 100); // call use() again in 100 milliseconds
+
+
+
 }
 
 // ---------- Controls (Event Handlers) ----------
@@ -65,6 +67,7 @@ function keyDown(event) {
     if (event.key === exampleKey && echo === false) {
       console.log("Letter P has been added to the array");
       storeOfTheNotes.push("A4"); // keeps sounding until triggerRelease
+      synth.triggerAttackRelease("A4", "8n");
     } else if (event.key === exampleKey && echo === true) {
       synth.triggerAttack(exampleNote2, Tone.now()); // keeps sounding until triggerRelease
     } else if (event.key === exampleKey2 && echo === false) {
@@ -85,18 +88,23 @@ function storeNotes(event) {
   if (key === "p" && echo === false) {
     console.log("Letter P has been added to the array");
     storeOfTheNotes.push("E4");
+    synth.triggerAttackRelease("E4", "8n");
   } else if (key === "o" && echo === false) {
     console.log("Letter O has been added to the array");
     storeOfTheNotes.push("A2");
+    synth.triggerAttackRelease("A2", "8n");
   } else if (key === "l" && echo === false) {
     console.log("Letter L has been added to the array");
     storeOfTheNotes.push("E3");
+    synth.triggerAttackRelease("E3", "8n");
   } else if (key === "k" && echo === false) {
     console.log("Letter K has been added to the array");
     storeOfTheNotes.push("B3");
+    synth.triggerAttackRelease("B3", "8n");
   } else if (key === "u" && echo === false) {
     console.log("Letter U has been added to the array");
     storeOfTheNotes.push("C5");
+    synth.triggerAttackRelease("C5", "8n");
   } else if (key === "+") {
     console.log("You have removed a note at the end of the array");
     storeOfTheNotes.pop();
@@ -125,7 +133,7 @@ function playStoredNotes(event) {
       synth.triggerAttackRelease(
         storeOfTheNotes[parameter],
         "8n",
-        Tone.now() + parameter * 0.5,
+        Tone.now() + parameter * 0.4,
       );
     }
   }
