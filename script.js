@@ -60,68 +60,72 @@ function keyDown(event) {
   if (event.repeat === false) {
     console.log("Key down:", event.key);
 
-    // Example: replace this with your own instrument.
+    // Conditions that determine whether the note should just play or play and be stored in the array named storeOfTheNotes
     if (event.key === exampleKey && echo === false) {
-      console.log("Letter P has been added to the array");
-      storeOfTheNotes.push("A4"); // keeps sounding until triggerRelease
-      synth.triggerAttackRelease("A4", "8n");
+      console.log("Note A4 has been added to the array");
+      storeOfTheNotes.push("A4"); // pushes a note to the storage and plays it
+      synth.triggerAttackRelease("A4", "10n");
     } else if (event.key === exampleKey && echo === true) {
-      synth.triggerAttack(exampleNote2, Tone.now()); // keeps sounding until triggerRelease
+      synth.triggerAttack(exampleNote2, Tone.now()); // just plays a note until the key is up
     } else if (event.key === exampleKey2 && echo === false) {
-      console.log("Letter P has been added to the array");
-      storeOfTheNotes.push("A4"); // keeps sounding until triggerRelease
+      console.log("A4 has been added to the array");
+      storeOfTheNotes.push("A4"); //
     } else if (event.key === exampleKey2 && echo === true) {
-      metal.triggerAttack(exampleNote2, Tone.now()); // keeps sounding until triggerRelease
+      metal.triggerAttack(exampleNote2, Tone.now()); // just plays a sound util triggerRelease
     } else if (event.key === "Shift" && echo === false) {
-      echo = true;
+      echo = true; //Enables us to use echo as we want to, is essential part of a few statements
     } else if (event.key === "Shift" && echo === true) {
       echo = false;
     }
   }
 }
 
+//A range of if statements that push notes to the array
 function storeNotes(event) {
   let key = event.key;
   if (key === "p" && echo === false) {
     console.log("Note E4 has been added to the array");
-    storeOfTheNotes.push("E4");
-    synth.triggerAttackRelease("E4", "8n");
+    storeOfTheNotes.push("E4"); // plays and pushes the note
+    synth.triggerAttackRelease("E4", "10n");
   } else if (key === "o" && echo === false) {
     console.log("Note A2 has been added to the array");
-    storeOfTheNotes.push("A2");
-    synth.triggerAttackRelease("A2", "8n");
+    storeOfTheNotes.push("A2"); // plays and pushes the note
+    synth.triggerAttackRelease("A2", "10n");
   } else if (key === "l" && echo === false) {
     console.log("Note E3 has been added to the array");
-    storeOfTheNotes.push("E3");
-    synth.triggerAttackRelease("E3", "8n");
+    storeOfTheNotes.push("E3"); // plays and pushes the note
+    synth.triggerAttackRelease("E3", "10n");
   } else if (key === "k" && echo === false) {
     console.log("Note B3 has been added to the array");
-    storeOfTheNotes.push("B3");
-    synth.triggerAttackRelease("B3", "8n");
+    storeOfTheNotes.push("B3"); // plays and pushes the note
+    synth.triggerAttackRelease("B3", "10n");
   } else if (key === "u" && echo === false) {
     console.log("Note C5 has been added to the array");
-    storeOfTheNotes.push("C5");
-    synth.triggerAttackRelease("C5", "8n");
+    storeOfTheNotes.push("C5"); // plays and pushes the note
+    synth.triggerAttackRelease("C5", "10n");
   } else if (key === "+") {
-    console.log("You have removed a note at the end of the array");
-    storeOfTheNotes.pop();
+    console.log("You have removed a note at the end of the array"); // if you press + it pops the last note
+    storeOfTheNotes.pop(); // that you have added to the array
   } else if (key === "-") {
-    console.log("You have removed a note at the front of the array");
-    storeOfTheNotes.shift();
+    console.log("You have removed a note at the front of the array"); // if you press - you remove
+    storeOfTheNotes.shift(); // note at the front
   } else if (key === "p" && echo === true) {
-    synth.triggerAttackRelease("E4", "8n");
+    synth.triggerAttackRelease("E4", "10n"); //if you do not press shift after opening html file then
   } else if (key === "o" && echo === true) {
-    synth.triggerAttackRelease("A2", "8n");
+    //all notes just play and will not be stored
+    synth.triggerAttackRelease("A2", "10n");
   } else if (key === "l" && echo === true) {
-    synth.triggerAttackRelease("E3", "8n");
+    synth.triggerAttackRelease("E3", "10n");
   } else if (key === "k" && echo === true) {
-    synth.triggerAttackRelease("B3", "8n");
+    synth.triggerAttackRelease("B3", "10n");
   } else if (key === "u" && echo === true) {
-    synth.triggerAttackRelease("C5", "8n");
+    synth.triggerAttackRelease("C5", "10n");
   }
 }
 
+//This function enables us playing all notes in the array, approximately after 0.5 second, * 0.4 is more convinient
 function playStoredNotes(event) {
+  // because parameter grows just as the number of the note that is playing.
   let key = event.key;
   if (key === "i") {
     console.log("The notes you have stored are now playing");
@@ -129,37 +133,52 @@ function playStoredNotes(event) {
     for (parameter = 0; parameter < storeOfTheNotes.length - 1; parameter++) {
       synth.triggerAttackRelease(
         storeOfTheNotes[parameter],
-        "8n",
+        "10n",
         Tone.now() + parameter * 0.4,
+      );
+    }
+  } else if (key === "y") {
+    console.log("Double stored notes are now playing");
+    console.log(storeOfTheNotes);
+    for (parameter = 0; parameter < storeOfTheNotes.length - 1; parameter++) {
+      synth.triggerAttackRelease(
+        storeOfTheNotes[parameter],
+        "20n",
+        Tone.now() + parameter * 0.2,
       );
     }
   }
 }
 
+//This function plays metal sounds
 function readyToPlay(event) {
   Tone.start();
   key = event.key;
   if (key === "e") {
-    metal.frequency.value = 400;
-    metal.envelope.decay = 0.3;
-    metal.resonance = 2000;
+    metal.frequency.value = 100;
+    metal.envelope.decay = 0.4;
+    metal.resonance = 10000;
     metal.triggerAttackRelease("D3");
   } else if (key === "w") {
-    metal.frequency.value = 200;
+    metal.frequency.value = 160;
     metal.envelope.decay = 0.6;
-    metal.resonance = 4000;
+    metal.resonance = 9000;
     metal.triggerAttackRelease("A4");
   } else if (key === "r") {
+    metal.frequency.value = 710;
+    metal.envelope.decay = 0.6;
+    metal.resonance = 12000;
     metal.triggerAttackRelease("B4");
   } else if (key === "f") {
     metal.frequency.value = 100;
-    metal.envelope.decay = 0.3;
-    metal.resonance = 1000;
+    metal.envelope.decay = 1;
+    metal.resonance = 8500;
     metal.triggerAttackRelease("G6");
   }
 }
 
 // Runs every time a key comes up.
+//Makes sure that keys as examplekey1/2 and exampleNote1/2 stop playing when the key is up.
 function keyUp(event) {
   console.log("Key up:", event.key);
 
@@ -180,15 +199,16 @@ function keyUp(event) {
 // ---------- Setup ----------
 // Setup is run once, at the start of the program. It sets everything up for us!
 function setup() {
+  //
   update(); // start the update loop
   use(); // start the use loop
 
   // Put your event listener code here
   window.addEventListener("keydown", keyDown);
   window.addEventListener("keyup", keyUp);
+  document.addEventListener("keydown", readyToPlay);
+  document.addEventListener("keydown", storeNotes);
+  document.addEventListener("keydown", playStoredNotes);
 }
-document.addEventListener("keydown", readyToPlay);
-document.addEventListener("keydown", storeNotes);
-document.addEventListener("keydown", playStoredNotes);
 
 setup(); // Always remember to call setup()!
