@@ -100,15 +100,21 @@ function myKeyboardDown(event) {
   if (event.repeat) return;
 
   if (key === "shift") {
-    myEchoEnabled = true;
-    return;
+  myEchoEnabled = !myEchoEnabled;
+  return;
+}
+
+  let index = -1;
+
+for (let i = 0; i < myKeys.length; i++) {
+  if (myKeys[i] === key) {
+    index = i;
   }
+}
 
-  const index = myKeys.indexOf(key);
+if (index === -1) return;
 
-  if (index === -1) return;
-
-  const note = myNotes[index];
+const note = myNotes[index];
 
   if (myEchoEnabled) {
     myEchoSynth.triggerAttackRelease(note, "8n");
@@ -116,11 +122,8 @@ function myKeyboardDown(event) {
     myDrySynth.triggerAttackRelease(note, "8n");
   }
 }
-
+//aurthor: am8013
 function myKeyboardUp(event) {
-  if (event.key === "Shift") {
-    myEchoEnabled = false;
-  }
 }
 
 function keyDown(event) {
