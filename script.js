@@ -30,6 +30,10 @@ const exampleNote2 = "A4";
 const monoKey = ["z", "x", "c", "v", "b", "n", "m"]
 const monoNote = ["C4", "D4", "E4", "F4", "G4", "A4", "B4"]
 
+// am8013 My keyboard
+const myKeys = ["d", "f", "g", "h", "j"];
+const myNotes = ["C4", "D4", "E4", "G4", "A4"];
+
 
 // ---------- State ----------
 // State variables are the parts of your program that change over time.
@@ -43,6 +47,11 @@ const synth = new Tone.PolySynth(Tone.Synth).toDestination(); // can play severa
 const metal = new Tone.MetalSynth().toDestination();
 const mono = new Tone.MonoSynth().toDestination();
 
+// am8013 My sound
+let myEchoEnabled = false;
+const myDelay = new Tone.FeedbackDelay("8n", 0.3).toDestination();
+const myDrySynth = new Tone.PolySynth(Tone.Synth).toDestination();
+const myEchoSynth = new Tone.PolySynth(Tone.Synth).connect(myDelay);
 
 // ---------- Update ----------
 // Update the state. This is called every 100ms.
@@ -60,7 +69,38 @@ function use() {
 
 // ---------- Controls (Event Handlers) ----------
 // Runs every time a key goes down.
-// Aurthor: Am8013
+// Aurthor: Am8013 My keyboard controls
+function myKeyboardDown(event) {
+  Tone.start();
+
+  const key = event.key.toLowerCase();
+
+  if (event.repeat) return;
+
+  if (key === "shift") {
+    myEchoEnabled = true;
+    return;
+  }
+
+  const index = myKeys.indexOf(key);
+
+  if (index === -1) return;
+
+  const note = myNotes[index];
+
+  if (myEchoEnabled) {
+    myEchoSynth.triggerAttackRelease(note, "8n");
+  } else {
+    myDrySynth.triggerAttackRelease(note, "8n");
+  }
+}
+
+function myKeyboardUp(event) {
+  if (event.key === "Shift") {
+    myEchoEnabled = false;
+  }
+}
+
 function keyDown(event) {
   Tone.start(); // browsers only allow sound after the player has pressed something
 
@@ -232,6 +272,8 @@ function setup() {
   // Put your event listener code here
   window.addEventListener("keydown", keyDown);
   window.addEventListener("keyup", keyUp);
+  window.addEventListener("keydown", myKeyboardDown);
+  window.addEventListener("keyup", myKeyboardUp);
   document.addEventListener("keydown", readyToPlay);
   document.addEventListener("keydown", storeNotes);
   document.addEventListener("keydown", playStoredNotes);
