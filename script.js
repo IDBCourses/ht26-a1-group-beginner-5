@@ -29,7 +29,7 @@ const exampleNote2 = "A4";
 
 let distortion = 0.1
 
-// Tara - tarayunamo@gmail.com
+// Tara - ad0962
 const monoKey = ["z", "x", "c", "v", "b", "n", "m"]
 const monoNote = ["C4", "D4", "E4", "F4", "G4", "A4", "B4"]
 // .
@@ -50,7 +50,7 @@ let storeOfTheNotes = [];
 const synth = new Tone.PolySynth(Tone.Synth).toDestination(); // can play several notes at once
 const metal = new Tone.MetalSynth().toDestination();
 
-// Tara - tarayunamo@gmail.com
+// Tara - ad0962
 const mono = new Tone.MonoSynth().toDestination();
 
 const distortionEffect = new Tone.Distortion(0.8).toDestination(); // an effect that makes the sound more "gritty"
@@ -127,7 +127,7 @@ function myKeyboardUp(event) {
   }
 }
 
-function keyDown(event) {
+function keyDown(event) { // Author: as7197
   Tone.start(); // browsers only allow sound after the player has pressed something
 
   // Holding a key down sends keydown again and again. Only react to the first one.
@@ -161,7 +161,7 @@ function keyDown(event) {
     console.log("Slowering distortion to: " + distortion);
   }
   }
-// Tara - tarayunamo@gmail.com
+// Tara - ad0962
 function monoKeyDown(event) {
 
    for (let i = 0; i < monoKey.length; i++) {
@@ -182,7 +182,7 @@ function monoKeyUp(event) {
 //.
 
 //A range of if statements that push notes to the array
-function storeNotes(event) {
+function storeNotes(event) { // Author: as7197
   let key = event.key;
   if (key === "p" && echo === false) {
     console.log("Note E4 has been added to the array");
@@ -225,7 +225,7 @@ function storeNotes(event) {
 }
 
 //This function enables us playing all notes in the array, approximately after 0.5 second, * 0.4 is more convinient
-function playStoredNotes(event) {
+function playStoredNotes(event) { // Author: as7197
   // because parameter grows just as the number of the note that is playing.
   let key = event.key;
   if (key === "i") {
