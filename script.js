@@ -21,10 +21,22 @@
 // ---------- Settings ----------
 // Settings variables should contain all of the "fixed" parts of your programs
 // For example: which key does what, which notes you can play, the tempo.
+let metalStoreNotes = [];
 const exampleKey = "a";
 const exampleKey2 = "s"; // the key that plays the example note
 const exampleNote = "A4"; // the note it plays
 const exampleNote2 = "A4";
+
+let distortion = 0.1
+
+
+const monoKey = ["z", "x", "c", "v", "b", "n", "m"]
+const monoNote = ["C4", "D4", "E4", "F4", "G4", "A4", "B4"]
+
+// am8013 My keyboard
+const myKeys = ["d", "f", "g", "h", "j"];
+const myNotes = ["C4", "D4", "E4", "G4", "A4"];
+
 
 // ---------- State ----------
 // State variables are the parts of your program that change over time.
@@ -36,6 +48,31 @@ let storeOfTheNotes = [];
 // Make the instruments and plug them into the speakers.
 const synth = new Tone.PolySynth(Tone.Synth).toDestination(); // can play several notes at once
 const metal = new Tone.MetalSynth().toDestination();
+const mono = new Tone.MonoSynth().toDestination();
+
+const distortionEffect = new Tone.Distortion(0.8).toDestination(); // an effect that makes the sound more "gritty"
+
+function raiseDistortion() {
+  distortion = distortion + 0.1;
+  if (distortion > 1) {
+    distortion = 1;
+  }
+  distortionEffect.distortion = distortion;
+}
+
+function lowerDistortion() {
+  distortion = distortion - 0.1;
+  if (distortion < 0) {
+    distortion = 0;
+  }
+  distortionEffect.distortion = distortion;
+}
+
+// am8013 My sound
+let myEchoEnabled = false;
+const myDelay = new Tone.FeedbackDelay("8n", 0.3).toDestination();
+const myDrySynth = new Tone.PolySynth(Tone.Synth).toDestination();
+const myEchoSynth = new Tone.PolySynth(Tone.Synth).connect(myDelay);
 
 // ---------- Update ----------
 // Update the state. This is called every 100ms.
@@ -48,20 +85,52 @@ function update() {
 // ---------- Use ----------
 // Use the state to make sound. This is called every 100ms.
 function use() {
+  synth.connect(distortionEffect);
   setTimeout(use, 100); // call use() again in 100 milliseconds
 }
 
 // ---------- Controls (Event Handlers) ----------
 // Runs every time a key goes down.
+// Aurthor: Am8013 My keyboard controls
+function myKeyboardDown(event) {
+  Tone.start();
+
+  const key = event.key.toLowerCase();
+
+  if (event.repeat) return;
+
+  if (key === "shift") {
+    myEchoEnabled = true;
+    return;
+  }
+
+  const index = myKeys.indexOf(key);
+
+  if (index === -1) return;
+
+  const note = myNotes[index];
+
+  if (myEchoEnabled) {
+    myEchoSynth.triggerAttackRelease(note, "8n");
+  } else {
+    myDrySynth.triggerAttackRelease(note, "8n");
+  }
+}
+
+function myKeyboardUp(event) {
+  if (event.key === "Shift") {
+    myEchoEnabled = false;
+  }
+}
+
 function keyDown(event) {
   Tone.start(); // browsers only allow sound after the player has pressed something
 
   // Holding a key down sends keydown again and again. Only react to the first one.
   if (event.repeat === false) {
     console.log("Key down:", event.key);
-
-    // Conditions that determine whether the note should just play or play and be stored in the array named storeOfTheNotes
-    if (event.key === exampleKey && echo === false) {
+  }
+  if (event.key === exampleKey && echo === false) {
       console.log("Note A4 has been added to the array");
       storeOfTheNotes.push("A4"); // pushes a note to the storage and plays it
       synth.triggerAttackRelease("A4", "10n");
@@ -73,9 +142,36 @@ function keyDown(event) {
     } else if (event.key === exampleKey2 && echo === true) {
       metal.triggerAttack(exampleNote2, Tone.now()); // just plays a sound util triggerRelease
     } else if (event.key === "Shift" && echo === false) {
-      echo = true; //Enables us to use echo as we want to, is essential part of a few statements
+      echo = false; //Enables us to use echo as we want to, is essential part of a few statements
     } else if (event.key === "Shift" && echo === true) {
-      echo = false;
+   echo = false;
+    }
+
+    if (event.key === "9") {
+      raiseDistortion();
+      console.log("raising distortion to: " + distortion);
+    }
+
+   if (event.key === "0") {
+    lowerDistortion();
+    console.log("Slowering distortion to: " + distortion);
+  }
+  }
+
+function monoKeyDown(event) {
+
+   for (let i = 0; i < monoKey.length; i++) {
+    if (event.key === monoKey[i]) {
+    mono.triggerAttack(monoNote[i], Tone.now());
+    }
+   }
+  }
+
+function monoKeyUp(event) {
+
+ for (let i = 0; i < monoKey.length; i++) {
+    if (event.key === monoKey[i]) {
+    mono.triggerRelease();
     }
   }
 }
@@ -150,30 +246,53 @@ function playStoredNotes(event) {
   }
 }
 
-//This function plays metal sounds
+function storeNotesMetal(event) {
+  let key = event.key;
+  if (key === "e") {
+    console.log("Letter E has been added to the array");
+    metalStoreNotes.push("F1");
+  } else if (key === "w") {
+    console.log("Letter W has been added to the array");
+    metalStoreNotes.push("G2");
+  } else if (key === "r") {
+    console.log("Letter R has been added to the array");
+    metalStoreNotes.push("E1");
+  } else if (key === "t") {
+    console.log("Letter K has been added to the array");
+    metalStoreNotes.push("D1");
+  }else if (key === "4") {
+    console.log("Letter L has been added to the array");
+    metalStoreNotes.push("A1");
+}
+}
 function readyToPlay(event) {
   Tone.start();
   key = event.key;
   if (key === "e") {
-    metal.frequency.value = 100;
-    metal.envelope.decay = 0.4;
-    metal.resonance = 10000;
-    metal.triggerAttackRelease("D3");
+    metal.triggerAttackRelease("F1");
   } else if (key === "w") {
-    metal.frequency.value = 160;
-    metal.envelope.decay = 0.6;
-    metal.resonance = 9000;
-    metal.triggerAttackRelease("A4");
+    metal.triggerAttackRelease("G2");
   } else if (key === "r") {
-    metal.frequency.value = 710;
-    metal.envelope.decay = 0.6;
-    metal.resonance = 12000;
-    metal.triggerAttackRelease("B4");
-  } else if (key === "f") {
-    metal.frequency.value = 100;
-    metal.envelope.decay = 1;
-    metal.resonance = 8500;
-    metal.triggerAttackRelease("G6");
+    metal.triggerAttackRelease("E1");
+  } else if (key === "t") {
+    metal.triggerAttackRelease("D1");
+  } else if (key === "4"){
+    metal.triggerAttackRelease("A1");
+  }
+ }
+
+function playStoredNotesMetal(event) {
+  let key = event.key;
+  if (key === "q") {
+    console.log("The notes you have stored are now playing");
+    console.log(metalStoreNotes);
+    for (parameter = 0; parameter < metalStoreNotes.length; parameter++) {
+      metal.triggerAttackRelease(
+        metalStoreNotes[parameter],
+        "8n",
+        Tone.now() + parameter * 0.27,
+      );
+    }
   }
 }
 
@@ -206,9 +325,15 @@ function setup() {
   // Put your event listener code here
   window.addEventListener("keydown", keyDown);
   window.addEventListener("keyup", keyUp);
+  window.addEventListener("keydown", myKeyboardDown);
+  window.addEventListener("keyup", myKeyboardUp);
   document.addEventListener("keydown", readyToPlay);
   document.addEventListener("keydown", storeNotes);
   document.addEventListener("keydown", playStoredNotes);
+  document.addEventListener("keydown", storeNotesMetal);
+document.addEventListener("keydown", playStoredNotesMetal);
+document.addEventListener("keydown", monoKeyDown);
+document.addEventListener("keyup", monoKeyUp);
 }
 
 setup(); // Always remember to call setup()!
