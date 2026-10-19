@@ -122,7 +122,8 @@ function myKeyboardUp(event) {
   }
 }
 
-function keyDown(event) { // Author: as7197
+// Author: as7197@student.mau.se
+function keyDown(event) {
   Tone.start(); // browsers only allow sound after the player has pressed something
 
   // Holding a key down sends keydown again and again. Only react to the first one.
@@ -175,6 +176,7 @@ function monoKeyUp(event) {
   }
 }
 
+// Author: as7197@student.mau.se
 //A range of if statements that push notes to the array
 function storeNotes(event) { // Author: as7197
   let key = event.key;
@@ -218,6 +220,7 @@ function storeNotes(event) { // Author: as7197
   }
 }
 
+// Author: as7197@student.mau.se
 //This function enables us playing all notes in the array, approximately after 0.5 second, * 0.4 is more convinient
 function playStoredNotes(event) { // Author: as7197
   // because parameter grows just as the number of the note that is playing.
@@ -245,6 +248,7 @@ function playStoredNotes(event) { // Author: as7197
   }
 }
 
+// Author: as6462@student.mau.se
 function storeNotesMetal(event) {
   let key = event.key;
   if (key === "e") {
@@ -264,6 +268,8 @@ function storeNotesMetal(event) {
     metalStoreNotes.push("A1");
 }
 }
+
+// Author: as6462@student.mau.se
 function readyToPlay(event) {
   Tone.start();
   key = event.key;
@@ -280,6 +286,7 @@ function readyToPlay(event) {
   }
  }
 
+ // Author: as6462@student.mau.se
 function playStoredNotesMetal(event) {
   let key = event.key;
   if (key === "q") {
