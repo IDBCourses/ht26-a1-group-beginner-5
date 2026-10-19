@@ -13,6 +13,17 @@
 
 | Key | What it does                                                |
 | --- | ----------------------------------------------------------- |
+| `A` | Plays C4 while you hold it down (the example: replace it)   |
+|     |                                                             |
+| `z` | Plays C4, MonoSynth. Lenght is based on press and release.  |
+| `x` | Plays D4, MonoSynth. Lenght is based on press and release.  |
+| `c` | Plays E4, MonoSynth. Lenght is based on press and release.  |
+| `v` | Plays F4, MonoSynth. Lenght is based on press and release.  |
+| `b` | Plays G4, MonoSynth. Lenght is based on press and release.  |
+| `n` | Plays A4, MonoSynth. Lenght is based on press and release.  |
+| `m` | Plays B4, MonoSynth. Lenght is based on press and release.  |
+| `9` | Notes with Synth will get a higher distortion.              |
+| `0` | Notes with Synth will get a lower distortion.               |
 | `Q` |Plays the array with keys added from metal.synth             |
 | `E` |Plays (F1) on a metal.synth and adds it to the array for it  |
 | `W` |Plays (G2) on a metal.synth and adds it to the array for it  |
