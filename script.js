@@ -26,6 +26,8 @@ const exampleKey2 = "s"; // the key that plays the example note
 const exampleNote = "A4"; // the note it plays
 const exampleNote2 = "A4";
 
+let distortion = 0.1
+
 
 const monoKey = ["z", "x", "c", "v", "b", "n", "m"]
 const monoNote = ["C4", "D4", "E4", "F4", "G4", "A4", "B4"]
@@ -43,6 +45,33 @@ const synth = new Tone.PolySynth(Tone.Synth).toDestination(); // can play severa
 const metal = new Tone.MetalSynth().toDestination();
 const mono = new Tone.MonoSynth().toDestination();
 
+const distortionEffect = new Tone.Distortion(0.8).toDestination(); // an effect that makes the sound more "gritty"
+
+function raiseDistortion() {
+  distortion = distortion + 0.1;
+  if (distortion > 1) {
+    distortion = 1;
+  }
+  distortionEffect.distortion = distortion;
+}
+
+function lowerDistortion() {
+  distortion = distortion - 0.1;
+  if (distortion < 0) {
+    distortion = 0;
+  }
+  distortionEffect.distortion = distortion;
+}
+
+function change(event) {
+  let key = event.key;
+  if (key === "1"); {
+    octave === octave + 1;
+    }
+     if (key === "2") {
+      octave === octave - 1;
+  }
+  }
 
 // ---------- Update ----------
 // Update the state. This is called every 100ms.
@@ -55,6 +84,7 @@ function update() {
 // ---------- Use ----------
 // Use the state to make sound. This is called every 100ms.
 function use() {
+  synth.connect(distortionEffect);
   setTimeout(use, 100); // call use() again in 100 milliseconds
 }
 
@@ -85,6 +115,16 @@ function keyDown(event) {
     } else if (event.key === "Shift" && echo === true) {
       echo = false;
     }
+
+    if (event.key === "9") {
+      raiseDistortion();
+      console.log("raising distortion to: " + distortion);
+    }
+
+   if (event.key === "0") {
+    lowerDistortion();
+    console.log("Slowering distortion to: " + distortion);
+  }
   }
 }
 
@@ -105,7 +145,6 @@ function monoKeyUp(event) {
     }
   }
 }
-
 
 //A range of if statements that push notes to the array
 function storeNotes(event) {
