@@ -36,18 +36,22 @@ const monoNote = ["C4", "D4", "E4", "F4", "G4", "A4", "B4"]
 // ---------- State ----------
 // State variables are the parts of your program that change over time.
 // For example: which octave you're playing in, or whether a drone is on.
+let echo = true;
+let storeOfTheNotes = [];
 
 // ---------- Sound ----------
 // Make the instruments and plug them into the speakers.
 const synth = new Tone.PolySynth(Tone.Synth).toDestination(); // can play several notes at once
 const metal = new Tone.MetalSynth().toDestination();
+const mono = new Tone.MonoSynth().toDestination();
+
 
 // ---------- Update ----------
 // Update the state. This is called every 100ms.
 function update() {
   // Example: replace this with your own instrument.
 
-  setTimeout(update, 100); // call update() again in 100 milliseconds
+  setTimeout(playStoredNotes, 100); // call update() again in 100 milliseconds
 }
 
 // ---------- Use ----------
@@ -58,6 +62,7 @@ function use() {
 
 // ---------- Controls (Event Handlers) ----------
 // Runs every time a key goes down.
+// Aurthor: Am8013
 function keyDown(event) {
   Tone.start(); // browsers only allow sound after the player has pressed something
 
@@ -65,11 +70,72 @@ function keyDown(event) {
   if (event.repeat === false) {
     console.log("Key down:", event.key);
 
+//A range of if statements that push notes to the array
+function storeNotes(event) {
+  let key = event.key;
+  if (key === "p" && echo === false) {
+    console.log("Note E4 has been added to the array");
+    storeOfTheNotes.push("E4"); // plays and pushes the note
+    synth.triggerAttackRelease("E4", "10n");
+  } else if (key === "o" && echo === false) {
+    console.log("Note A2 has been added to the array");
+    storeOfTheNotes.push("A2"); // plays and pushes the note
+    synth.triggerAttackRelease("A2", "10n");
+  } else if (key === "l" && echo === false) {
+    console.log("Note E3 has been added to the array");
+    storeOfTheNotes.push("E3"); // plays and pushes the note
+    synth.triggerAttackRelease("E3", "10n");
+  } else if (key === "k" && echo === false) {
+    console.log("Note B3 has been added to the array");
+    storeOfTheNotes.push("B3"); // plays and pushes the note
+    synth.triggerAttackRelease("B3", "10n");
+  } else if (key === "u" && echo === false) {
+    console.log("Note C5 has been added to the array");
+    storeOfTheNotes.push("C5"); // plays and pushes the note
+    synth.triggerAttackRelease("C5", "10n");
+  } else if (key === "+") {
+    console.log("You have removed a note at the end of the array"); // if you press + it pops the last note
+    storeOfTheNotes.pop(); // that you have added to the array
+  } else if (key === "-") {
+    console.log("You have removed a note at the front of the array"); // if you press - you remove
+    storeOfTheNotes.shift(); // note at the front
+  } else if (key === "p" && echo === true) {
+    synth.triggerAttackRelease("E4", "10n"); //if you do not press shift after opening html file then
+  } else if (key === "o" && echo === true) {
+    //all notes just play and will not be stored
+    synth.triggerAttackRelease("A2", "10n");
+  } else if (key === "l" && echo === true) {
+    synth.triggerAttackRelease("E3", "10n");
+  } else if (key === "k" && echo === true) {
+    synth.triggerAttackRelease("B3", "10n");
+  } else if (key === "u" && echo === true) {
+    synth.triggerAttackRelease("C5", "10n");
+  }
+}
 
-
-    // Example: replace this with your own instrument.
-    if (event.key === exampleKey) {
-      synth.triggerAttack(exampleNote, Tone.now()); // keeps sounding until triggerRelease
+//This function enables us playing all notes in the array, approximately after 0.5 second, * 0.4 is more convinient
+function playStoredNotes(event) {
+  // because parameter grows just as the number of the note that is playing.
+  let key = event.key;
+  if (key === "i") {
+    console.log("The notes you have stored are now playing");
+    console.log(storeOfTheNotes);
+    for (parameter = 0; parameter < storeOfTheNotes.length - 1; parameter++) {
+      synth.triggerAttackRelease(
+        storeOfTheNotes[parameter],
+        "10n",
+        Tone.now() + parameter * 0.4,
+      );
+    }
+  } else if (key === "y") {
+    console.log("Double quick stored notes are now playing");
+    console.log(storeOfTheNotes);
+    for (parameter = 0; parameter < storeOfTheNotes.length - 1; parameter++) {
+      synth.triggerAttackRelease(
+        storeOfTheNotes[parameter],
+        "20n",
+        Tone.now() + parameter * 0.2,
+      );
     }
   }
 }
@@ -195,28 +261,44 @@ function playStoredNotesMetal(event) {
 }
 
 // Runs every time a key comes up.
+//Makes sure that keys as examplekey1/2 and exampleNote1/2 stop playing when the key is up.
 function keyUp(event) {
   console.log("Key up:", event.key);
 
   // Example: replace this with your own instrument.
-  if (event.key === exampleKey) {
-    synth.triggerRelease(exampleNote, Tone.now());
+  if (event.key === exampleKey && echo === false) {
+    synth.triggerRelease(exampleNote, Tone.now()); // keeps sounding until triggerRelease
+  } else if (event.key === exampleKey && echo === true) {
+    synth.triggerRelease(exampleNote2, Tone.now()); // keeps sounding until triggerRelease
+  }
+
+  if (event.key === exampleKey2 && echo === false) {
+    metal.triggerRelease(exampleNote, Tone.now()); // keeps sounding until triggerRelease
+  } else if (event.key === exampleKey2 && echo === true) {
+    metal.triggerRelease(exampleNote2, Tone.now()); // keeps sounding until triggerRelease
   }
 }
 
 // ---------- Setup ----------
 // Setup is run once, at the start of the program. It sets everything up for us!
 function setup() {
+  //
   update(); // start the update loop
   use(); // start the use loop
 
   // Put your event listener code here
   window.addEventListener("keydown", keyDown);
   window.addEventListener("keyup", keyUp);
+  document.addEventListener("keydown", readyToPlay);
+  document.addEventListener("keydown", storeNotes);
+  document.addEventListener("keydown", playStoredNotes);
 }
 document.addEventListener("keydown", readyToPlay);
 document.addEventListener("keydown", storeNotes);
 document.addEventListener("keydown", playStoredNotes);
 document.addEventListener("keydown", storeNotesMetal);
 document.addEventListener("keydown", playStoredNotesMetal);
+document.addEventListener("keydown", monoKeyDown);
+document.addEventListener("keyup", monoKeyUp);
+
 setup(); // Always remember to call setup()!
