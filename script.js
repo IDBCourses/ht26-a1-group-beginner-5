@@ -100,7 +100,7 @@ function myKeyboardDown(event) {
   if (event.repeat) return;
 
   if (key === "shift") {
-    myEchoEnabled = true;
+    myEchoEnabled = !myEchoEnabled;
     return;
   }
 
@@ -118,9 +118,6 @@ function myKeyboardDown(event) {
 }
 
 function myKeyboardUp(event) {
-  if (event.key === "Shift") {
-    myEchoEnabled = false;
-  }
 }
 
 // Author: as7197@student.mau.se
