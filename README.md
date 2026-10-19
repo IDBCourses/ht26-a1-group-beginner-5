@@ -12,8 +12,17 @@
 
 | Key | What it does                                                |
 | --- | ----------------------------------------------------------- |
-| `A` | Plays a C4 while you hold it down (the example: replace it) |
+| `A` | Plays C4 while you hold it down (the example: replace it)   |
 |     |                                                             |
+| `z` | Plays C4, MonoSynth. Lenght is based on press and release.  |
+| `x` | Plays D4, MonoSynth. Lenght is based on press and release.  |
+| `c` | Plays E4, MonoSynth. Lenght is based on press and release.  |
+| `v` | Plays F4, MonoSynth. Lenght is based on press and release.  |
+| `b` | Plays G4, MonoSynth. Lenght is based on press and release.  |
+| `n` | Plays A4, MonoSynth. Lenght is based on press and release.  |
+| `m` | Plays B4, MonoSynth. Lenght is based on press and release.  |
+| `9` | Notes with Synth will get a higher distortion.              |
+| `0` | Notes with Synth will get a lower distortion.               |
 
 <!-- Anything else a player needs to know: how to get started, combinations of keys, a good thing to try first. -->
 
