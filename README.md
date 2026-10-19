@@ -6,6 +6,7 @@
 
 <There's a couple of instruments going on in our code, we have cymbals from a drumset (metal.synth), a trumpet (mono.synth) and a piano (poly.synth). Our idea was to make it like a keyboard where you can play multiple instruments and make easy loops with them to play along with other instruments>
 
+
 ## How to play
 
 <!-- Which keys do what? Fill in the table, and add a row for every key or group of keys. -->
@@ -29,6 +30,22 @@
 | `a` |Plays (A4) on a metal.synth and adds it to the array for it  |
 |`Shift`| Switches its value from True to False or onthe contrary   |
 | `a` |Plays (A4) on a metal.synth and adds it to the array for it  |
+
+
+<Zainab
+
+| Key     | What it does                                                                                 |
+| ------- | -------------------------------------------------------------------------------------------- |
+| `D`     | Plays the note C4.                                                                           |
+| `F`     | Plays the note D4.                                                                           |
+| `G`     | Plays the note E4.                                                                           |
+| `H`     | Plays the note G4.                                                                           |
+| `J`     | Plays the note A4.                                                                           |
+| `Shift` | Toggles the echo effect on and off. Press once to enable echo and press again to disable it. |
+
+Play notes using `D`, `F`, `G`, `H`, and `J`. Try pressing `Shift` to turn the echo effect on, then play the notes again to hear the difference, press the `Shift` again to play without echo.
+
+<!-- Anything else a player needs to know: how to get started, combinations of keys, a good thing to try first. -->
 
 <!-- Anything else a player needs to know: how to get started, combinations of keys, a good thing to try first. -->
 | `For keys p,o,l,k,a,u,i,y` | By default the array that is played by i and y is empty, by default you cannot store sounds in the array. In order to be able to store sounds you have to press shift so that the value of Shift is false, then play p,o,l,k,a or u, you will hear a sound and the note will be stored into the array for synth sounds. If you want to clean up the queue then press +, it will clean up the last note, so you should just hold it for a while to completely clean up the queue, - does the same thing but from the front. In order to check whether you are storing the notes play S, if you hear a sound-are you not storing anything, if you do not hear a sound you are storing notes.|
