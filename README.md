@@ -19,6 +19,17 @@
 | `R` |Plays (E1) on a metal.synth and adds it to the array for it  |
 | `T` |Plays (D1) on a metal.synth and adds it to the array for it  |
 | `4` |Plays (A1) on a metal.synth and adds it to the array for it  |
+| `i` |Plays the synth.array with keys added from synth             |
+| `y` |Same as "i" but plays twice as fast                          |
+| `p` |Plays (E4) on a metal.synth and adds it to the array for it  |
+| `o` |Plays (A2) on a metal.synth and adds it to the array for it  |
+| `l` |Plays (E3) on a metal.synth and adds it to the array for it  |
+| `k` |Plays (B3) on a metal.synth and adds it to the array for it  |
+| `u` |Plays (C5) on a metal.synth and adds it to the array for it  |
+| `+` |Takes out the last note you have added                       |
+| `a` |Plays (A4) on a metal.synth and adds it to the array for it  |
+|`Shift`| Switches its value from True to False or onthe contrary   |
+| `a` |Plays (A4) on a metal.synth and adds it to the array for it  |
 
 
 <Zainab
@@ -36,6 +47,8 @@ Play notes using `D`, `F`, `G`, `H`, and `J`. Try pressing `Shift` to turn the e
 
 <!-- Anything else a player needs to know: how to get started, combinations of keys, a good thing to try first. -->
 
+<!-- Anything else a player needs to know: how to get started, combinations of keys, a good thing to try first. -->
+| `For keys p,o,l,k,a,u,i,y` | By default the array that is played by i and y is empty, by default you cannot store sounds in the array. In order to be able to store sounds you have to press shift so that the value of Shift is false, then play p,o,l,k,a or u, you will hear a sound and the note will be stored into the array for synth sounds. If you want to clean up the queue then press +, it will clean up the last note, so you should just hold it for a while to completely clean up the queue, - does the same thing but from the front. In order to check whether you are storing the notes play S, if you hear a sound-are you not storing anything, if you do not hear a sound you are storing notes.|
 ---
 
 ## About this assignment
