@@ -1,10 +1,11 @@
 # Our instrument
 
-**Play it here:** <!-- Paste your GitHub Pages link here, e.g. https://idbcourses.github.io/ht26-a1-group-01/ -->
+**Play it here:** <https://github.com/IDBCourses/ht26-a1-group-beginner-5.git>
 
-**Group:** <!-- Names of everyone in the group -->
+**Group:** <Nikodem, Zainab, Serafym, Tara>
 
-<!-- One or two sentences: what kind of instrument is it, and what is it like to play? -->
+<There's a couple of instruments going on in our code, we have cymbals from a drumset (metal.synth), a trumpet (mono.synth) and a piano (poly.synth). Our idea was to make it like a keyboard where you can play multiple instruments and make easy loops with them to play along with other instruments>
+
 
 ## How to play
 
@@ -12,8 +13,26 @@
 
 | Key | What it does                                                |
 | --- | ----------------------------------------------------------- |
-| `A` | Plays a C4 while you hold it down (the example: replace it) |
-|     |                                                             |
+| `Q` |Plays the array with keys added from metal.synth             |
+| `E` |Plays (F1) on a metal.synth and adds it to the array for it  |
+| `W` |Plays (G2) on a metal.synth and adds it to the array for it  |
+| `R` |Plays (E1) on a metal.synth and adds it to the array for it  |
+| `T` |Plays (D1) on a metal.synth and adds it to the array for it  |
+| `4` |Plays (A1) on a metal.synth and adds it to the array for it  |
+
+
+<Zainab
+
+| Key     | What it does                                                                                 |
+| ------- | -------------------------------------------------------------------------------------------- |
+| `D`     | Plays the note C4.                                                                           |
+| `F`     | Plays the note D4.                                                                           |
+| `G`     | Plays the note E4.                                                                           |
+| `H`     | Plays the note G4.                                                                           |
+| `J`     | Plays the note A4.                                                                           |
+| `Shift` | Toggles the echo effect on and off. Press once to enable echo and press again to disable it. |
+
+Play notes using `D`, `F`, `G`, `H`, and `J`. Try pressing `Shift` to turn the echo effect on, then play the notes again to hear the difference, press the `Shift` again to play without echo.
 
 <!-- Anything else a player needs to know: how to get started, combinations of keys, a good thing to try first. -->
 
