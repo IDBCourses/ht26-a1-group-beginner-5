@@ -26,6 +26,11 @@ const exampleKey2 = "s"; // the key that plays the example note
 const exampleNote = "A4"; // the note it plays
 const exampleNote2 = "A4";
 
+
+const monoKey = ["z", "x", "c", "v", "b", "n", "m"]
+const monoNote = ["C4", "D4", "E4", "F4", "G4", "A4", "B4"]
+
+
 // ---------- State ----------
 // State variables are the parts of your program that change over time.
 // For example: which octave you're playing in, or whether a drone is on.
@@ -36,6 +41,8 @@ let storeOfTheNotes = [];
 // Make the instruments and plug them into the speakers.
 const synth = new Tone.PolySynth(Tone.Synth).toDestination(); // can play several notes at once
 const metal = new Tone.MetalSynth().toDestination();
+const mono = new Tone.MonoSynth().toDestination();
+
 
 // ---------- Update ----------
 // Update the state. This is called every 100ms.
@@ -80,6 +87,23 @@ function keyDown(event) {
     }
   }
 }
+
+function monoKeyDown(event) {
+
+   for (let i = 0; i < monoKey.length; i++) {
+    if (event.key === monoKey[i]) {
+    mono.triggerAttack(monoNote[i], Tone.now());
+    }
+   }
+  }
+
+function monoKeyUp(event) {
+
+ for (let i = 0; i < monoKey.length; i++) {
+    if (event.key === monoKey[i]) {
+    mono.triggerRelease();
+    }
+  }
 }
 
 
@@ -178,7 +202,7 @@ function readyToPlay(event) {
     metal.resonance = 8500;
     metal.triggerAttackRelease("G6");
   }
-
+}
 // Runs every time a key comes up.
 //Makes sure that keys as examplekey1/2 and exampleNote1/2 stop playing when the key is up.
 function keyUp(event) {
@@ -212,5 +236,10 @@ function setup() {
   document.addEventListener("keydown", storeNotes);
   document.addEventListener("keydown", playStoredNotes);
 }
+document.addEventListener("keydown", readyToPlay);
+document.addEventListener("keydown", storeNotes);
+document.addEventListener("keydown", playStoredNotes);
+document.addEventListener("keydown", monoKeyDown);
+document.addEventListener("keyup", monoKeyUp);
 
 setup(); // Always remember to call setup()!
