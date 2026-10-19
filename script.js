@@ -28,7 +28,7 @@ const exampleNote = "A4"; // the note it plays
 const exampleNote2 = "A4";
 let distortion = 0
 
-
+// Author: at0962 (Tara)
 const monoKey = ["z", "x", "c", "v", "b", "n", "m"]
 const monoNote = ["C4", "D4", "E4", "F4", "G4", "A4", "B4"]
 
@@ -49,6 +49,7 @@ const synth = new Tone.PolySynth(Tone.Synth).toDestination(); // can play severa
 const metal = new Tone.MetalSynth().toDestination();
 const mono = new Tone.MonoSynth().toDestination();
 
+// Author: at0962 (Tara)
 const distortionEffect = new Tone.Distortion(0.8).toDestination(); // an effect that makes the sound more "gritty"
 
 function raiseDistortion() {
@@ -146,7 +147,7 @@ function keyDown(event) {
     } else if (event.key === "Shift" && echo === true) {
    echo = false;
     }
-
+// Author: at0962 (Tara)
     if (event.key === "9") {
       raiseDistortion();
       console.log("raising distortion to: " + distortion);
@@ -157,7 +158,7 @@ function keyDown(event) {
     console.log("Slowering distortion to: " + distortion);
   }
   }
-
+// Author: at0962 (Tara)
 function monoKeyDown(event) {
 
    for (let i = 0; i < monoKey.length; i++) {
