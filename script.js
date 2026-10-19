@@ -26,13 +26,11 @@ const exampleKey = "a";
 const exampleKey2 = "s"; // the key that plays the example note
 const exampleNote = "A4"; // the note it plays
 const exampleNote2 = "A4";
+let distortion = 0
 
-let distortion = 0.1
 
-// Tara - ad0962
 const monoKey = ["z", "x", "c", "v", "b", "n", "m"]
 const monoNote = ["C4", "D4", "E4", "F4", "G4", "A4", "B4"]
-// .
 
 // am8013 My keyboard
 const myKeys = ["d", "f", "g", "h", "j"];
@@ -49,8 +47,6 @@ let storeOfTheNotes = [];
 // Make the instruments and plug them into the speakers.
 const synth = new Tone.PolySynth(Tone.Synth).toDestination(); // can play several notes at once
 const metal = new Tone.MetalSynth().toDestination();
-
-// Tara - ad0962
 const mono = new Tone.MonoSynth().toDestination();
 
 const distortionEffect = new Tone.Distortion(0.8).toDestination(); // an effect that makes the sound more "gritty"
@@ -70,12 +66,11 @@ function lowerDistortion() {
   }
   distortionEffect.distortion = distortion;
 }
-// .
 
-// am8013 My sound
+// Author: am8013 My sound
 let myEchoEnabled = false;
 const myDelay = new Tone.FeedbackDelay("8n", 0.3).toDestination();
-const myDrySynth = new Tone.PolySynth(Tone.Synth).toDestination();
+const casualSynth = new Tone.PolySynth(Tone.Synth).toDestination();
 const myEchoSynth = new Tone.PolySynth(Tone.Synth).connect(myDelay);
 
 // ---------- Update ----------
@@ -117,7 +112,7 @@ function myKeyboardDown(event) {
   if (myEchoEnabled) {
     myEchoSynth.triggerAttackRelease(note, "8n");
   } else {
-    myDrySynth.triggerAttackRelease(note, "8n");
+    casualSynth.triggerAttackRelease(note, "8n");
   }
 }
 
@@ -127,7 +122,8 @@ function myKeyboardUp(event) {
   }
 }
 
-function keyDown(event) { // Author: as7197
+// Author: as7197@student.mau.se
+function keyDown(event) {
   Tone.start(); // browsers only allow sound after the player has pressed something
 
   // Holding a key down sends keydown again and again. Only react to the first one.
@@ -137,9 +133,9 @@ function keyDown(event) { // Author: as7197
   if (event.key === exampleKey && echo === false) {
       console.log("Note A4 has been added to the array");
       storeOfTheNotes.push("A4"); // pushes a note to the storage and plays it
-      synth.triggerAttackRelease("A4", "10n");
+      casualSynth.triggerAttackRelease("A4", "10n");
     } else if (event.key === exampleKey && echo === true) {
-      synth.triggerAttack(exampleNote2, Tone.now()); // just plays a note until the key is up
+      casualSynth.triggerAttack(exampleNote2, Tone.now()); // just plays a note until the key is up
     } else if (event.key === exampleKey2 && echo === false) {
       console.log("A4 has been added to the array");
       storeOfTheNotes.push("A4"); //
@@ -161,7 +157,7 @@ function keyDown(event) { // Author: as7197
     console.log("Slowering distortion to: " + distortion);
   }
   }
-// Tara - ad0962
+
 function monoKeyDown(event) {
 
    for (let i = 0; i < monoKey.length; i++) {
@@ -179,31 +175,31 @@ function monoKeyUp(event) {
     }
   }
 }
-//.
 
+// Author: as7197@student.mau.se
 //A range of if statements that push notes to the array
 function storeNotes(event) { // Author: as7197
   let key = event.key;
   if (key === "p" && echo === false) {
     console.log("Note E4 has been added to the array");
     storeOfTheNotes.push("E4"); // plays and pushes the note
-    synth.triggerAttackRelease("E4", "10n");
+    casualSynth.triggerAttackRelease("E4", "10n");
   } else if (key === "o" && echo === false) {
     console.log("Note A2 has been added to the array");
     storeOfTheNotes.push("A2"); // plays and pushes the note
-    synth.triggerAttackRelease("A2", "10n");
+    casualSynth.triggerAttackRelease("A2", "10n");
   } else if (key === "l" && echo === false) {
     console.log("Note E3 has been added to the array");
     storeOfTheNotes.push("E3"); // plays and pushes the note
-    synth.triggerAttackRelease("E3", "10n");
+    casualSynth.triggerAttackRelease("E3", "10n");
   } else if (key === "k" && echo === false) {
     console.log("Note B3 has been added to the array");
     storeOfTheNotes.push("B3"); // plays and pushes the note
-    synth.triggerAttackRelease("B3", "10n");
+    casualSynth.triggerAttackRelease("B3", "10n");
   } else if (key === "u" && echo === false) {
     console.log("Note C5 has been added to the array");
     storeOfTheNotes.push("C5"); // plays and pushes the note
-    synth.triggerAttackRelease("C5", "10n");
+    casualSynth.triggerAttackRelease("C5", "10n");
   } else if (key === "+") {
     console.log("You have removed a note at the end of the array"); // if you press + it pops the last note
     storeOfTheNotes.pop(); // that you have added to the array
@@ -211,19 +207,20 @@ function storeNotes(event) { // Author: as7197
     console.log("You have removed a note at the front of the array"); // if you press - you remove
     storeOfTheNotes.shift(); // note at the front
   } else if (key === "p" && echo === true) {
-    synth.triggerAttackRelease("E4", "10n"); //if you do not press shift after opening html file then
+    casualSynth.triggerAttackRelease("E4", "10n"); //if you do not press shift after opening html file then
   } else if (key === "o" && echo === true) {
     //all notes just play and will not be stored
-    synth.triggerAttackRelease("A2", "10n");
+    casualSynth.triggerAttackRelease("A2", "10n");
   } else if (key === "l" && echo === true) {
-    synth.triggerAttackRelease("E3", "10n");
+    casualSynth.triggerAttackRelease("E3", "10n");
   } else if (key === "k" && echo === true) {
-    synth.triggerAttackRelease("B3", "10n");
+    casualSynth.triggerAttackRelease("B3", "10n");
   } else if (key === "u" && echo === true) {
-    synth.triggerAttackRelease("C5", "10n");
+    casualSynth.triggerAttackRelease("C5", "10n");
   }
 }
 
+// Author: as7197@student.mau.se
 //This function enables us playing all notes in the array, approximately after 0.5 second, * 0.4 is more convinient
 function playStoredNotes(event) { // Author: as7197
   // because parameter grows just as the number of the note that is playing.
@@ -232,7 +229,7 @@ function playStoredNotes(event) { // Author: as7197
     console.log("The notes you have stored are now playing");
     console.log(storeOfTheNotes);
     for (parameter = 0; parameter < storeOfTheNotes.length - 1; parameter++) {
-      synth.triggerAttackRelease(
+      casualSynth.triggerAttackRelease(
         storeOfTheNotes[parameter],
         "10n",
         Tone.now() + parameter * 0.4,
@@ -242,7 +239,7 @@ function playStoredNotes(event) { // Author: as7197
     console.log("Double quick stored notes are now playing");
     console.log(storeOfTheNotes);
     for (parameter = 0; parameter < storeOfTheNotes.length - 1; parameter++) {
-      synth.triggerAttackRelease(
+      casualSynth.triggerAttackRelease(
         storeOfTheNotes[parameter],
         "20n",
         Tone.now() + parameter * 0.2,
@@ -251,6 +248,7 @@ function playStoredNotes(event) { // Author: as7197
   }
 }
 
+// Author: as6462@student.mau.se
 function storeNotesMetal(event) {
   let key = event.key;
   if (key === "e") {
@@ -270,6 +268,8 @@ function storeNotesMetal(event) {
     metalStoreNotes.push("A1");
 }
 }
+
+// Author: as6462@student.mau.se
 function readyToPlay(event) {
   Tone.start();
   key = event.key;
@@ -286,6 +286,7 @@ function readyToPlay(event) {
   }
  }
 
+ // Author: as6462@student.mau.se
 function playStoredNotesMetal(event) {
   let key = event.key;
   if (key === "q") {
@@ -308,9 +309,9 @@ function keyUp(event) {
 
   // Example: replace this with your own instrument.
   if (event.key === exampleKey && echo === false) {
-    synth.triggerRelease(exampleNote, Tone.now()); // keeps sounding until triggerRelease
+    casualSynth.triggerRelease(exampleNote, Tone.now()); // keeps sounding until triggerRelease
   } else if (event.key === exampleKey && echo === true) {
-    synth.triggerRelease(exampleNote2, Tone.now()); // keeps sounding until triggerRelease
+    casualSynth.triggerRelease(exampleNote2, Tone.now()); // keeps sounding until triggerRelease
   }
 
   if (event.key === exampleKey2 && echo === false) {
