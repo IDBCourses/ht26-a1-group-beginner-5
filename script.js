@@ -100,7 +100,7 @@ function playStoredNotes(event) {
   if (key === "i") {
     console.log("The notes you have stored are now playing");
     console.log(storeOfTheNotes);
-    for (parameter = 0; parameter < storeOfTheNotes.length - 1; parameter++) {
+    for (parameter = 0; parameter < storeOfTheNotes.length; parameter++) {
       synth.triggerAttackRelease(
         storeOfTheNotes[parameter],
         "8n",
@@ -110,58 +110,47 @@ function playStoredNotes(event) {
   }
 }
 
-function storeNotes(event) {
+function storeNotesMetal(event) {
   let key = event.key;
   if (key === "e") {
     console.log("Letter E has been added to the array");
-    metalStoreNotes.push("metal.frequency.value = 400; metal.envelope.decay = 0.3; metal.resonance = 2000;");
+    metalStoreNotes.push(E = {mfv: 400, med: 0.3, ms: 2000});
   } else if (key === "w") {
     console.log("Letter W has been added to the array");
-    metalStoreNotes.push("metal.frequency.value = 200; metal.envelope.decay = 0.6; metal.resonance = 4000;");
+    metalStoreNotes.push(W = {mfv: 200, med: 0.6, ms: 4000});
   } else if (key === "r") {
     console.log("Letter R has been added to the array");
-    metalStoreNotes.push("metal.frequency.value = 600; metal.envelope.decay = 0.9; metal.resonance = 6000;");
+    metalStoreNotes.push("metal.frequency.value = 600; metal.envelope.decay = 0.9; metal.resonance = 6000");
   } else if (key === "f") {
     console.log("Letter F has been added to the array");
-    metalStoreNotes.push("metal.frequency.value = 100; metal.envelope.decay = 0.3; metal.resonance = 1000;");
+    metalStoreNotes.push("metal.frequency.value = 100; metal.envelope.decay = 0.3; metal.resonance = 1000");
   }
 }
 function readyToPlay(event) {
   Tone.start();
   key = event.key;
   if (key === "e") {
-    metal.frequency.value = 400;
-    metal.envelope.decay = 0.3;
-    metal.resonance = 2000;
-    metal.triggerAttackRelease("8n");
+    metal.triggerAttackRelease("A4");
   } else if (key === "w") {
-    metal.frequency.value = 200;
-    metal.envelope.decay = 0.6;
-    metal.resonance = 4000;
-    metal.triggerAttackRelease("8n");
+    metal.triggerAttackRelease("D4");
   } else if (key === "r") {
-    metal.frequency.value = 600;
-    metal.envelope.decay = 0.9;
-    metal.resonance = 6000;
-    metal.triggerAttackRelease("8n");
+    metal.triggerAttackRelease("C4");
   } else if (key === "f") {
-    metal.frequency.value = 100;
-    metal.envelope.decay = 0.3;
-    metal.resonance = 1000;
-    metal.triggerAttackRelease("8n");
+    metal.triggerAttackRelease("B4");
   }
  }
-function playStoredNotes(event) {
+function playStoredNotesMetal(event) {
   let key = event.key;
   if (key === "q") {
     console.log("The notes you have stored are now playing");
-    console.log(metalStoreNotes);
-    for (parameter = 0; parameter < metalStoreNotes.length - 1; parameter++) {
-      metal.triggerAttackRelease(
-        metalStoreNotes[parameter],
-        "8n",
-        Tone.now() + parameter * 1,
-      );
+    console.log(metalStoreNotes)
+    console.log(metalStoreNotes.length)
+    for (parameter = 0; parameter < metalStoreNotes.length; parameter++) {
+      metal.frequency.value = parameter.mfv
+      metal.envelope.decay = parameter.med;
+      metal.resonance = parameter.ms;
+      metal.triggerAttackRelease("8n", Tone.now());
+      setTimeout(500);
     }
   }
 }
@@ -189,5 +178,6 @@ function setup() {
 document.addEventListener("keydown", readyToPlay);
 document.addEventListener("keydown", storeNotes);
 document.addEventListener("keydown", playStoredNotes);
-
+document.addEventListener("keydown", storeNotesMetal);
+document.addEventListener("keydown", playStoredNotesMetal);
 setup(); // Always remember to call setup()!
