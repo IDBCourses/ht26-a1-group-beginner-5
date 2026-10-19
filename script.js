@@ -53,6 +53,7 @@ function use() {
 
 // ---------- Controls (Event Handlers) ----------
 // Runs every time a key goes down.
+// Aurthor: Am8013
 function keyDown(event) {
   Tone.start(); // browsers only allow sound after the player has pressed something
 
@@ -79,6 +80,8 @@ function keyDown(event) {
     }
   }
 }
+}
+
 
 //A range of if statements that push notes to the array
 function storeNotes(event) {
@@ -175,7 +178,6 @@ function readyToPlay(event) {
     metal.resonance = 8500;
     metal.triggerAttackRelease("G6");
   }
-}
 
 // Runs every time a key comes up.
 //Makes sure that keys as examplekey1/2 and exampleNote1/2 stop playing when the key is up.
