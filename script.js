@@ -114,43 +114,48 @@ function storeNotesMetal(event) {
   let key = event.key;
   if (key === "e") {
     console.log("Letter E has been added to the array");
-    metalStoreNotes.push(E = {mfv: 400, med: 0.3, ms: 2000});
+    metalStoreNotes.push("F1");
   } else if (key === "w") {
     console.log("Letter W has been added to the array");
-    metalStoreNotes.push(W = {mfv: 200, med: 0.6, ms: 4000});
+    metalStoreNotes.push("G2");
   } else if (key === "r") {
     console.log("Letter R has been added to the array");
-    metalStoreNotes.push("metal.frequency.value = 600; metal.envelope.decay = 0.9; metal.resonance = 6000");
-  } else if (key === "f") {
-    console.log("Letter F has been added to the array");
-    metalStoreNotes.push("metal.frequency.value = 100; metal.envelope.decay = 0.3; metal.resonance = 1000");
-  }
+    metalStoreNotes.push("E1");
+  } else if (key === "k") {
+    console.log("Letter K has been added to the array");
+    metalStoreNotes.push("D1");
+  }else if (key === "l") {
+    console.log("Letter L has been added to the array");
+    metalStoreNotes.push("A1");
+}
 }
 function readyToPlay(event) {
   Tone.start();
   key = event.key;
   if (key === "e") {
-    metal.triggerAttackRelease("A4");
+    metal.triggerAttackRelease("F1");
   } else if (key === "w") {
-    metal.triggerAttackRelease("D4");
+    metal.triggerAttackRelease("G2");
   } else if (key === "r") {
-    metal.triggerAttackRelease("C4");
-  } else if (key === "f") {
-    metal.triggerAttackRelease("B4");
+    metal.triggerAttackRelease("E1");
+  } else if (key === "k") {
+    metal.triggerAttackRelease("D1");
+  } else if (key === "l"){
+    metal.triggerAttackRelease("A1");
   }
  }
+
 function playStoredNotesMetal(event) {
   let key = event.key;
   if (key === "q") {
     console.log("The notes you have stored are now playing");
-    console.log(metalStoreNotes)
-    console.log(metalStoreNotes.length)
+    console.log(metalStoreNotes);
     for (parameter = 0; parameter < metalStoreNotes.length; parameter++) {
-      metal.frequency.value = parameter.mfv
-      metal.envelope.decay = parameter.med;
-      metal.resonance = parameter.ms;
-      metal.triggerAttackRelease("8n", Tone.now());
-      setTimeout(500);
+      metal.triggerAttackRelease(
+        metalStoreNotes[parameter],
+        "8n",
+        Tone.now() + parameter * 0.27,
+      );
     }
   }
 }
