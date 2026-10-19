@@ -29,9 +29,10 @@ const exampleNote2 = "A4";
 
 let distortion = 0.1
 
-
+// Tara - tarayunamo@gmail.com
 const monoKey = ["z", "x", "c", "v", "b", "n", "m"]
 const monoNote = ["C4", "D4", "E4", "F4", "G4", "A4", "B4"]
+// .
 
 // am8013 My keyboard
 const myKeys = ["d", "f", "g", "h", "j"];
@@ -48,6 +49,8 @@ let storeOfTheNotes = [];
 // Make the instruments and plug them into the speakers.
 const synth = new Tone.PolySynth(Tone.Synth).toDestination(); // can play several notes at once
 const metal = new Tone.MetalSynth().toDestination();
+
+// Tara - tarayunamo@gmail.com
 const mono = new Tone.MonoSynth().toDestination();
 
 const distortionEffect = new Tone.Distortion(0.8).toDestination(); // an effect that makes the sound more "gritty"
@@ -67,6 +70,7 @@ function lowerDistortion() {
   }
   distortionEffect.distortion = distortion;
 }
+// .
 
 // am8013 My sound
 let myEchoEnabled = false;
@@ -157,7 +161,7 @@ function keyDown(event) {
     console.log("Slowering distortion to: " + distortion);
   }
   }
-
+// Tara - tarayunamo@gmail.com
 function monoKeyDown(event) {
 
    for (let i = 0; i < monoKey.length; i++) {
@@ -175,6 +179,7 @@ function monoKeyUp(event) {
     }
   }
 }
+//.
 
 //A range of if statements that push notes to the array
 function storeNotes(event) {
