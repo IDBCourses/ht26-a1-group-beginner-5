@@ -65,50 +65,76 @@ function keyDown(event) {
     }
   }
 }
-
+//A range of if statements that push notes to the array
 function storeNotes(event) {
   let key = event.key;
-  if (key === "p") {
-    console.log("Letter P has been added to the array");
-    storeOfTheNotes.push("E4");
-  } else if (key === "o") {
-    console.log("Letter O has been added to the array");
-    storeOfTheNotes.push("A2");
-  } else if (key === "l") {
-    console.log("Letter L has been added to the array");
-    storeOfTheNotes.push("E3");
-  } else if (key === "k") {
-    console.log("Letter K has been added to the array");
-    storeOfTheNotes.push("B3");
-  } else if (key === "m") {
-    console.log("Letter M has been added to the array");
-    storeOfTheNotes.push("D4");
-  } else if (key === "j") {
-    console.log("Letter J has been added to the array");
-    storeOfTheNotes.push("F4");
+  if (key === "p" && echo === false) {
+    console.log("Note E4 has been added to the array");
+    storeOfTheNotes.push("E4"); // plays and pushes the note
+    synth.triggerAttackRelease("E4", "10n");
+  } else if (key === "o" && echo === false) {
+    console.log("Note A2 has been added to the array");
+    storeOfTheNotes.push("A2"); // plays and pushes the note
+    synth.triggerAttackRelease("A2", "10n");
+  } else if (key === "l" && echo === false) {
+    console.log("Note E3 has been added to the array");
+    storeOfTheNotes.push("E3"); // plays and pushes the note
+    synth.triggerAttackRelease("E3", "10n");
+  } else if (key === "k" && echo === false) {
+    console.log("Note B3 has been added to the array");
+    storeOfTheNotes.push("B3"); // plays and pushes the note
+    synth.triggerAttackRelease("B3", "10n");
+  } else if (key === "u" && echo === false) {
+    console.log("Note C5 has been added to the array");
+    storeOfTheNotes.push("C5"); // plays and pushes the note
+    synth.triggerAttackRelease("C5", "10n");
   } else if (key === "+") {
-    console.log("You have removed a note at the end of the array");
-    storeOfTheNotes.pop();
+    console.log("You have removed a note at the end of the array"); // if you press + it pops the last note
+    storeOfTheNotes.pop(); // that you have added to the array
   } else if (key === "-") {
-    console.log("You have removed a note at the front of the array");
-    storeOfTheNotes.shift();
+    console.log("You have removed a note at the front of the array"); // if you press - you remove
+    storeOfTheNotes.shift(); // note at the front
+  } else if (key === "p" && echo === true) {
+    synth.triggerAttackRelease("E4", "10n"); //if you do not press shift after opening html file then
+  } else if (key === "o" && echo === true) {
+    //all notes just play and will not be stored
+    synth.triggerAttackRelease("A2", "10n");
+  } else if (key === "l" && echo === true) {
+    synth.triggerAttackRelease("E3", "10n");
+  } else if (key === "k" && echo === true) {
+    synth.triggerAttackRelease("B3", "10n");
+  } else if (key === "u" && echo === true) {
+    synth.triggerAttackRelease("C5", "10n");
   }
 }
 
+//This function enables us playing all notes in the array, approximately after 0.5 second, * 0.4 is more convinient
 function playStoredNotes(event) {
+  // because parameter grows just as the number of the note that is playing.
   let key = event.key;
   if (key === "i") {
     console.log("The notes you have stored are now playing");
     console.log(storeOfTheNotes);
-    for (parameter = 0; parameter < storeOfTheNotes.length; parameter++) {
+    for (parameter = 0; parameter < storeOfTheNotes.length - 1; parameter++) {
       synth.triggerAttackRelease(
         storeOfTheNotes[parameter],
-        "8n",
-        Tone.now() + parameter * 0.5,
+        "10n",
+        Tone.now() + parameter * 0.4,
+      );
+    }
+  } else if (key === "y") {
+    console.log("Double quick stored notes are now playing");
+    console.log(storeOfTheNotes);
+    for (parameter = 0; parameter < storeOfTheNotes.length - 1; parameter++) {
+      synth.triggerAttackRelease(
+        storeOfTheNotes[parameter],
+        "20n",
+        Tone.now() + parameter * 0.2,
       );
     }
   }
 }
+
 
 function storeNotesMetal(event) {
   let key = event.key;
