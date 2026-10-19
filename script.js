@@ -24,7 +24,7 @@
 const exampleKey = "a";
 const exampleKey2 = "s";
 const exampleKey3 = "d";
-const exampleKey4 = "z"; // the key that plays the example note
+const exampleKey4 = "j"; // the key that plays the example note
 const exampleNote = "A4"; // the note it plays
 const exampleNote2 = "D4";
 let echo = false;
